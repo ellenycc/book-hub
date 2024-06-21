@@ -19,8 +19,8 @@ interface Book {
     title: string;
     authors?: string[];
     publishedDate: string;
-    imageLinks: {
-      thumbnail?: string;
+    imageLinks?: {
+      thumbnail: string;
     };
   };
 }
@@ -44,8 +44,8 @@ const Main = () => {
         )
         .then((res) => setResults(res.data.items))
         .catch((err) => setError(err.message));
-    console.log(results);
   };
+  console.log(results);
 
   return (
     <>
@@ -56,7 +56,7 @@ const Main = () => {
           alignItems="center"
           justifyContent="center"
           gap={10}
-          minHeight="60vh"
+          minHeight="70vh"
           width="60vw"
           paddingX={2}
           textAlign="center"
