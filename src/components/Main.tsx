@@ -1,9 +1,11 @@
 import {
   Box,
+  Center,
   Heading,
   Input,
   InputGroup,
   InputLeftElement,
+  Text,
 } from "@chakra-ui/react";
 // import SearchInput from "./SearchInput";
 import BookCard from "./BookCard";
@@ -15,10 +17,10 @@ interface Book {
   id: string;
   volumeInfo: {
     title: string;
-    authors: string[];
+    authors?: string[];
     publishedDate: string;
     imageLinks: {
-      thumbnail: string;
+      thumbnail?: string;
     };
   };
 }
@@ -47,37 +49,51 @@ const Main = () => {
 
   return (
     <>
-      <Box
-        display="flex"
-        flexDirection="column"
-        alignItems="center"
-        justifyContent="center"
-        gap={10}
-        h="50vh"
-        padding={10}
-      >
-        <Heading fontSize="48px">Find your book of choice</Heading>
-        <form onSubmit={searchBook}>
-          <InputGroup minWidth="50vw">
-            <InputLeftElement children={<BsSearch />} />
-            <Input
-              ref={ref}
-              id="search"
-              value={search}
-              borderRadius={20}
-              placeholder="Search books..."
-              variant="filled"
-              onChange={(event) => setSearch(event.target.value)}
-            />
-          </InputGroup>
-        </form>
-      </Box>
+      <Center>
+        <Box
+          display="flex"
+          flexDirection="column"
+          alignItems="center"
+          justifyContent="center"
+          gap={10}
+          minHeight="60vh"
+          width="60vw"
+          paddingX={2}
+          textAlign="center"
+        >
+          <Heading fontSize="48px">Find your book of choice</Heading>
+          <Text fontSize="xl">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Quisque
+            sagittis purus sit amet volutpat consequat. Sapien eget mi proin sed
+            libero enim.
+          </Text>
+          <form onSubmit={searchBook}>
+            <InputGroup minWidth="50vw">
+              <InputLeftElement children={<BsSearch />} />
+              <Input
+                ref={ref}
+                id="search"
+                value={search}
+                borderRadius={20}
+                placeholder="Search books..."
+                variant="filled"
+                onChange={(event) => setSearch(event.target.value)}
+              />
+            </InputGroup>
+          </form>
+        </Box>
+      </Center>
       <Box paddingX={10}>
         {error && <p className="text-danger">{error}</p>}
-        <Heading fontSize="24px" marginBottom={5}>
-          Search Results
-        </Heading>
-        <BookCard results={results} />
+        {results.length !== 0 && (
+          <Heading fontSize="24px" marginBottom={5}>
+            Search Results
+          </Heading>
+        )}
+        <Center>
+          <BookCard results={results} />
+        </Center>
       </Box>
     </>
   );
