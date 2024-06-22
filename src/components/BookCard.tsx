@@ -23,6 +23,8 @@ const BookCard: FC<IBookCard> = (props) => {
     return (
       <Card key={book.id} borderRadius={10} maxWidth="250px" overflow="hidden">
         <Image
+          height="320px"
+          objectFit="cover"
           src={
             book.volumeInfo.imageLinks
               ? book.volumeInfo.imageLinks.thumbnail
@@ -30,9 +32,13 @@ const BookCard: FC<IBookCard> = (props) => {
           }
         />
         <CardBody>
-          <Text fontWeight="bold">{book.volumeInfo.title}</Text>
-          <Text>Author: {book.volumeInfo.authors?.join(",")}</Text>
-          <Text>Published Date: {book.volumeInfo.publishedDate}</Text>
+          <Text pb={2} fontWeight="bold">
+            {book.volumeInfo.title}
+          </Text>
+          <Text as="i">By {book.volumeInfo.authors?.join(",")}</Text>
+          <Text pt={2} fontSize="sm">
+            Published {book.volumeInfo.publishedDate}
+          </Text>
         </CardBody>
       </Card>
     );
