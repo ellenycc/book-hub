@@ -49,7 +49,7 @@ const Main = () => {
 
   return (
     <>
-      <Center>
+      <Center className="search-card">
         <Box
           display="flex"
           flexDirection="column"
@@ -70,14 +70,16 @@ const Main = () => {
           </Text>
           <form onSubmit={searchBook}>
             <InputGroup minWidth="50vw">
-              <InputLeftElement children={<BsSearch />} />
+              <InputLeftElement children={<BsSearch />} color="blue.700" />{" "}
+              TODO: change color in light and dark mode
               <Input
                 ref={ref}
                 id="search"
                 value={search}
                 borderRadius={20}
                 placeholder="Search books..."
-                variant="filled"
+                variant="customInput"
+                focusBorderColor="blue.50"
                 onChange={(event) => setSearch(event.target.value)}
               />
             </InputGroup>
