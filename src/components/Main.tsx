@@ -40,7 +40,7 @@ const Main = () => {
     if (ref.current)
       axios
         .get<BookResponse>(
-          `https://www.googleapis.com/books/v1/volumes?q=${search}&key=AIzaSyAje9Kn4hBLvO4yWkAX7BNGrHYpzB19jt0`
+          `https://www.googleapis.com/books/v1/volumes?q=${search}&key=AIzaSyAje9Kn4hBLvO4yWkAX7BNGrHYpzB19jt0&maxResults=20`
         )
         .then((res) => setResults(res.data.items))
         .catch((err) => setError(err.message));
@@ -57,21 +57,19 @@ const Main = () => {
           justifyContent="center"
           gap={10}
           minHeight="70vh"
-          width="60vw"
-          paddingX={2}
+          width="80vw"
+          paddingY={5}
           textAlign="center"
         >
-          <Heading fontSize="48px">Find your book of choice</Heading>
+          <Heading fontSize="48px">Find your perfect next read</Heading>
           <Text fontSize="xl">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Quisque
-            sagittis purus sit amet volutpat consequat. Sapien eget mi proin sed
-            libero enim.
+            sagittis purus sit amet volutpat consequat.
           </Text>
           <form onSubmit={searchBook}>
             <InputGroup minWidth="50vw">
-              <InputLeftElement children={<BsSearch />} color="blue.700" />{" "}
-              TODO: change color in light and dark mode
+              <InputLeftElement children={<BsSearch />} color="blue.700" />
               <Input
                 ref={ref}
                 id="search"
@@ -89,7 +87,7 @@ const Main = () => {
       <Box paddingX={10}>
         {error && <p className="text-danger">{error}</p>}
         {results.length !== 0 && (
-          <Heading fontSize="24px" marginBottom={5}>
+          <Heading fontSize="24px" ml={2} my={10}>
             Search Results
           </Heading>
         )}
