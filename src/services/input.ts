@@ -14,7 +14,10 @@ const customInput = definePartsStyle({
   field: {
       _dark: {
       background: '#ffffff'
-    }
+    },
+    _placeholder: {
+      opacity: 0.4, 
+      color: 'inherit' }
   }
 })
 
