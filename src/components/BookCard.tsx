@@ -1,5 +1,4 @@
 import { Card, Image, CardBody, Text, SimpleGrid } from "@chakra-ui/react";
-import { FC } from "react";
 import noImage from "../assets/no-image-placeholder-6f3882e0.webp";
 
 interface Book {

@@ -1,6 +1,5 @@
 import { Grid, GridItem } from "@chakra-ui/react";
 import NavBar from "./components/NavBar";
-// import SearchInput from "./components/SearchInput";
 import Main from "./components/Main";
 
 function App() {
