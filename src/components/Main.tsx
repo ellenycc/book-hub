@@ -7,10 +7,9 @@ import {
   InputLeftElement,
   Text,
 } from "@chakra-ui/react";
-// import SearchInput from "./SearchInput";
 import BookCard from "./BookCard";
 import axios from "axios";
-import { FormEvent, useRef, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import { BsSearch } from "react-icons/bs";
 
 interface Book {
@@ -35,6 +34,17 @@ const Main = () => {
   const [results, setResults] = useState<Book[]>([]);
   const [error, setError] = useState("");
 
+  // how to use useEffect hook to implement fetching when there's an input on the form and when the component mounts
+  // useEffect(() => {
+  //   if (ref.current)
+  //     axios
+  //       .get<BookResponse>(
+  //         `https://www.googleapis.com/books/v1/volumes?q=${search}&key=AIzaSyAje9Kn4hBLvO4yWkAX7BNGrHYpzB19jt0&maxResults=20`
+  //       )
+  //       .then((res) => setResults(res.data.items))
+  //       .catch((err) => setError(err.message));
+  // }, [search]);
+
   const searchBook = (event: FormEvent) => {
     event.preventDefault();
     if (ref.current)
@@ -45,7 +55,6 @@ const Main = () => {
         .then((res) => setResults(res.data.items))
         .catch((err) => setError(err.message));
   };
-  console.log(results);
 
   return (
     <>
@@ -61,14 +70,14 @@ const Main = () => {
           paddingY={5}
           textAlign="center"
         >
-          <Heading fontSize="48px">Find your perfect next read</Heading>
+          <Heading fontSize="48px">What is your next read?</Heading>
           <Text fontSize="xl">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Quisque
             sagittis purus sit amet volutpat consequat.
           </Text>
           <form onSubmit={searchBook}>
-            <InputGroup minWidth="50vw">
+            <InputGroup minWidth="50vw" size="lg">
               <InputLeftElement children={<BsSearch />} color="blue.700" />
               <Input
                 ref={ref}

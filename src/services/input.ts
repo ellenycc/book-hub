@@ -6,7 +6,7 @@ const { definePartsStyle, defineMultiStyleConfig } =
 
 const baseStyle = definePartsStyle({
   field: {
-    color: 'blue.900'
+    color: 'blue.900',
   },
 })
 

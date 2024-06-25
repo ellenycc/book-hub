@@ -1,6 +1,5 @@
 import { Card, Image, CardBody, Text, SimpleGrid } from "@chakra-ui/react";
 import { FC } from "react";
-import displayImagePlaceholder from "../services/image-url";
 import noImage from "../assets/no-image-placeholder-6f3882e0.webp";
 
 interface Book {
@@ -14,29 +13,29 @@ interface Book {
     };
   };
 }
-interface IBookCard {
+interface Props {
   results: Book[];
 }
 
-const BookCard: FC<IBookCard> = (props) => {
-  const displayCards = props.results.map((book) => {
+const BookCard = ({ results }: Props) => {
+  const displayCards = results.map((book) => {
     return (
       <Card key={book.id} borderRadius={10} maxWidth="250px" overflow="hidden">
         <Image
-          height="320px"
-          objectFit="cover"
+          height="200px"
+          objectFit="contain"
           src={
             book.volumeInfo.imageLinks
               ? book.volumeInfo.imageLinks.thumbnail
               : noImage
           }
         />
-        <CardBody>
-          <Text pb={2} fontWeight="bold">
+        <CardBody textAlign="center">
+          <Text pb={2} fontSize="xl" fontWeight="bold">
             {book.volumeInfo.title}
           </Text>
-          <Text as="i">By {book.volumeInfo.authors?.join(",")}</Text>
-          <Text pt={2} fontSize="sm">
+          <Text as="i">By {book.volumeInfo.authors?.join(", ")}</Text>
+          <Text pt={2} color="#718096">
             Published {book.volumeInfo.publishedDate}
           </Text>
         </CardBody>
