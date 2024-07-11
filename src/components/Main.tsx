@@ -11,6 +11,7 @@ import BookCard from "./BookCard";
 import axios from "axios";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { BsSearch } from "react-icons/bs";
+import SortSelector from "./SortSelector";
 
 interface Book {
   id: string;
@@ -33,17 +34,9 @@ const Main = () => {
   const [search, setSearch] = useState("");
   const [results, setResults] = useState<Book[]>([]);
   const [error, setError] = useState("");
+  const [sortOrder, setSortOrder] = useState("");
 
   // how to use useEffect hook to implement fetching when there's an input on the form and when the component mounts
-  // useEffect(() => {
-  //   if (ref.current)
-  //     axios
-  //       .get<BookResponse>(
-  //         `https://www.googleapis.com/books/v1/volumes?q=${search}&key=AIzaSyAje9Kn4hBLvO4yWkAX7BNGrHYpzB19jt0&maxResults=20`
-  //       )
-  //       .then((res) => setResults(res.data.items))
-  //       .catch((err) => setError(err.message));
-  // }, [search]);
 
   const searchBook = (event: FormEvent) => {
     event.preventDefault();
@@ -55,6 +48,18 @@ const Main = () => {
         .then((res) => setResults(res.data.items))
         .catch((err) => setError(err.message));
   };
+
+  useEffect(() => {
+    if (sortOrder === "") return;
+    else if (sortOrder === "relevance" || sortOrder === "newest") {
+      axios
+        .get<BookResponse>(
+          `https://www.googleapis.com/books/v1/volumes?q=${search}&orderBy=${sortOrder}&maxResults=20`
+        )
+        .then((res) => setResults(res.data.items))
+        .catch((err) => setError(err.message));
+    }
+  }, [sortOrder]);
 
   return (
     <>
@@ -91,6 +96,10 @@ const Main = () => {
               />
             </InputGroup>
           </form>
+          <SortSelector
+            sortOrder={sortOrder}
+            onSelectSortOrder={(sortOrder) => setSortOrder(sortOrder)}
+          />
         </Box>
       </Center>
       <Box paddingX={10}>
