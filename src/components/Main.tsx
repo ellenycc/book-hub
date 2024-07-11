@@ -50,16 +50,18 @@ const Main = () => {
   };
 
   useEffect(() => {
-    if (sortOrder === "") return;
-    else if (sortOrder === "relevance" || sortOrder === "newest") {
+    if (search === "" && sortOrder === "") return;
+    else if (search !== "" && sortOrder !== "") {
       axios
         .get<BookResponse>(
           `https://www.googleapis.com/books/v1/volumes?q=${search}&orderBy=${sortOrder}&maxResults=20`
         )
         .then((res) => setResults(res.data.items))
-        .catch((err) => setError(err.message));
+        .catch((err) => setError(""));
     }
   }, [sortOrder]);
+
+  // if we are not fetching any books, the sort function should not be called and the results should not be updated
 
   return (
     <>
