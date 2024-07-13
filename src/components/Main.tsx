@@ -26,8 +26,18 @@ interface Book {
 }
 
 interface BookResponse {
-  items: [];
+  items: Book[];
 }
+
+const API_KEY = "AIzaSyAje9Kn4hBLvO4yWkAX7BNGrHYpzB19jt0";
+const BASE_URL = "https://www.googleapis.com/books/v1/volumes";
+
+const getBooksUrl = (search: string, sortOrder?: string) => {
+  if (sortOrder) {
+    return `${BASE_URL}?q=${search}&orderBy=${sortOrder}`;
+  }
+  return `${BASE_URL}?q=${search}&key=${API_KEY}&maxResults=20`;
+};
 
 const Main = () => {
   const ref = useRef<HTMLInputElement>(null);
@@ -36,32 +46,33 @@ const Main = () => {
   const [error, setError] = useState("");
   const [sortOrder, setSortOrder] = useState("");
 
-  // how to use useEffect hook to implement fetching when there's an input on the form and when the component mounts
-
   const searchBook = (event: FormEvent) => {
     event.preventDefault();
-    if (ref.current)
-      axios
-        .get<BookResponse>(
-          `https://www.googleapis.com/books/v1/volumes?q=${search}&key=AIzaSyAje9Kn4hBLvO4yWkAX7BNGrHYpzB19jt0&maxResults=20`
-        )
-        .then((res) => setResults(res.data.items))
-        .catch((err) => setError(err.message));
+    if (!ref.current) return;
+    if (search === "") {
+      setError("Please enter a search term");
+      return;
+    }
+    setError("");
+    axios
+      //  getBooksUrl to replace https://www.googleapis.com/books/v1/volumes?q=${search}&key=AIzaSyAje9Kn4hBLvO4yWkAX7BNGrHYpzB19jt0&maxResults=20
+      .get<BookResponse>(getBooksUrl(search))
+      .then((res) => setResults(res.data.items))
+      .catch((err) => setError(err.message));
   };
 
   useEffect(() => {
-    if (search === "" && sortOrder === "") return;
-    else if (search !== "" && sortOrder !== "") {
+    if (search === "" || sortOrder === "") {
+      setResults([]);
+      return;
+    } else {
       axios
-        .get<BookResponse>(
-          `https://www.googleapis.com/books/v1/volumes?q=${search}&orderBy=${sortOrder}&maxResults=20`
-        )
+        // https://www.googleapis.com/books/v1/volumes?q=${search}&orderBy=${sortOrder}&maxResults=20
+        .get<BookResponse>(getBooksUrl(search, sortOrder))
         .then((res) => setResults(res.data.items))
-        .catch((err) => setError(""));
+        .catch((err) => setError(err.message));
     }
-  }, [sortOrder]);
-
-  // if we are not fetching any books, the sort function should not be called and the results should not be updated
+  }, [search, sortOrder]);
 
   return (
     <>
@@ -108,7 +119,7 @@ const Main = () => {
         {error && <p className="text-danger">{error}</p>}
         {results.length !== 0 && (
           <Heading fontSize="24px" ml={2} my={10}>
-            Search Results
+            Search Results for "{search}"
           </Heading>
         )}
         <Center>

@@ -6,8 +6,6 @@ export interface Props {
   sortOrder: string;
 }
 
-// user select the order, do we need to set the state for the order?
-
 const SortSelector = ({ onSelectSortOrder, sortOrder }: Props) => {
   const sortOrders = [
     { value: "relevance", label: "Relevance" },
@@ -29,7 +27,6 @@ const SortSelector = ({ onSelectSortOrder, sortOrder }: Props) => {
           <MenuItem
             onClick={() => {
               onSelectSortOrder(order.value);
-              console.log(order.value);
             }}
             key={order.value}
             value={order.value}
