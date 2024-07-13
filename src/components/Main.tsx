@@ -5,6 +5,7 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
+  Spinner,
   Text,
 } from "@chakra-ui/react";
 import BookCard from "./BookCard";
@@ -36,6 +37,7 @@ const Main = () => {
   const [results, setResults] = useState<Book[]>([]);
   const [error, setError] = useState("");
   const [sortOrder, setSortOrder] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const searchBook = (event: FormEvent) => {
     event.preventDefault();
@@ -44,12 +46,18 @@ const Main = () => {
       setError("Please enter a search term");
       return;
     }
+    setIsLoading(true);
     setError("");
     axios
-      //  getBooksUrl to replace https://www.googleapis.com/books/v1/volumes?q=${search}&key=AIzaSyAje9Kn4hBLvO4yWkAX7BNGrHYpzB19jt0&maxResults=20
       .get<BookResponse>(getBooksUrl(search))
-      .then((res) => setResults(res.data.items))
-      .catch((err) => setError(err.message));
+      .then((res) => {
+        setResults(res.data.items);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        setError(err.message);
+        setIsLoading(false);
+      });
   };
 
   useEffect(() => {
@@ -58,10 +66,15 @@ const Main = () => {
       return;
     } else {
       axios
-        // https://www.googleapis.com/books/v1/volumes?q=${search}&orderBy=${sortOrder}&maxResults=20
         .get<BookResponse>(getBooksUrl(search, sortOrder))
-        .then((res) => setResults(res.data.items))
-        .catch((err) => setError(err.message));
+        .then((res) => {
+          setResults(res.data.items);
+          setIsLoading(false);
+        })
+        .catch((err) => {
+          setError(err.message);
+          setIsLoading(false);
+        });
     }
   }, [search, sortOrder]);
 
@@ -108,6 +121,7 @@ const Main = () => {
       </Center>
       <Box paddingX={10}>
         {error && <p className="text-danger">{error}</p>}
+        {isLoading && <Spinner />}
         {results.length !== 0 && (
           <Heading fontSize="24px" ml={2} my={10}>
             Search Results for "{search}"
