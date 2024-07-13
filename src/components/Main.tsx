@@ -12,6 +12,7 @@ import axios from "axios";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { BsSearch } from "react-icons/bs";
 import SortSelector from "./SortSelector";
+import getBooksUrl from "../services/books-url";
 
 interface Book {
   id: string;
@@ -28,16 +29,6 @@ interface Book {
 interface BookResponse {
   items: Book[];
 }
-
-const API_KEY = "AIzaSyAje9Kn4hBLvO4yWkAX7BNGrHYpzB19jt0";
-const BASE_URL = "https://www.googleapis.com/books/v1/volumes";
-
-const getBooksUrl = (search: string, sortOrder?: string) => {
-  if (sortOrder) {
-    return `${BASE_URL}?q=${search}&orderBy=${sortOrder}`;
-  }
-  return `${BASE_URL}?q=${search}&key=${API_KEY}&maxResults=20`;
-};
 
 const Main = () => {
   const ref = useRef<HTMLInputElement>(null);
