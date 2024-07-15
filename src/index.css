@@ -1,6 +1,11 @@
 .search-card {
-background-color: aliceblue;
-background-image: url(./assets/background-library.jpg);
-background-size: cover;
-color: white;
+  background-color: aliceblue;
+  background-image: url(./assets/background-library.jpg);
+  background-size: cover;
+  color: white;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
 }

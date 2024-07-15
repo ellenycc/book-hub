@@ -21,13 +21,14 @@ interface Book {
     title: string;
     authors?: string[];
     publishedDate: string;
+    description: string;
     imageLinks?: {
       thumbnail: string;
     };
   };
 }
 
-interface BookResponse {
+export interface BookResponse {
   items: Book[];
 }
 
@@ -106,7 +107,7 @@ const Main = () => {
                 id="search"
                 value={search}
                 borderRadius={20}
-                placeholder="Search books..."
+                placeholder="Title, keyword, author or ISBN..."
                 variant="customInput"
                 focusBorderColor="blue.50"
                 onChange={(event) => setSearch(event.target.value)}
@@ -120,10 +121,12 @@ const Main = () => {
         </Box>
       </Center>
       <Box paddingX={10}>
-        {error && <p className="text-danger">{error}</p>}
-        {isLoading && <Spinner />}
+        <Box marginLeft={2} marginTop={10}>
+          {error && <p className="text-danger">{error}</p>}
+          {isLoading && <Spinner />}
+        </Box>
         {results.length !== 0 && (
-          <Heading fontSize="24px" ml={2} my={10}>
+          <Heading fontSize="24px" marginLeft={2} marginY={10}>
             Search Results for "{search}"
           </Heading>
         )}
