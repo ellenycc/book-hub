@@ -26,12 +26,6 @@ export interface Props {
   results: Book[];
 }
 
-// T0D0: Create a BookModal component that displays the book details when the image is clicked
-// T0D0: Use the BookModal component in the BookCard component
-// T0D0: Pass the book details to the BookModal component
-// T0D0: Display the book description in the BookModal component
-// T0D0: Create a test for the BookModal component
-
 function BookCard({ results }: Props) {
   const displayCards = results.map((book) => {
     return (

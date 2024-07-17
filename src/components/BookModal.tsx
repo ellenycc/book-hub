@@ -10,7 +10,6 @@ import {
   Text,
   useDisclosure,
   Image,
-  HStack,
 } from "@chakra-ui/react";
 
 interface Props {
