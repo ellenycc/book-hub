@@ -8,76 +8,23 @@ import {
   Spinner,
   Text,
 } from "@chakra-ui/react";
-import BookCard from "./BookCard";
-import axios from "axios";
-import { FormEvent, useEffect, useRef, useState } from "react";
 import { BsSearch } from "react-icons/bs";
+import useBooks from "../hooks/useBooks";
+import BookCard from "./BookCard";
 import SortSelector from "./SortSelector";
-import getBooksUrl from "../services/books-url";
-
-interface Book {
-  id: string;
-  volumeInfo: {
-    title: string;
-    authors?: string[];
-    publishedDate: string;
-    description: string;
-    imageLinks?: {
-      thumbnail: string;
-    };
-  };
-}
-
-export interface BookResponse {
-  items: Book[];
-}
 
 const Main = () => {
-  const ref = useRef<HTMLInputElement>(null);
-  const [search, setSearch] = useState("");
-  const [results, setResults] = useState<Book[]>([]);
-  const [error, setError] = useState("");
-  const [sortOrder, setSortOrder] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-
-  const searchBook = (event: FormEvent) => {
-    event.preventDefault();
-    if (!ref.current) return;
-    if (search === "") {
-      setError("Please enter a search term");
-      return;
-    }
-    setIsLoading(true);
-    setError("");
-    axios
-      .get<BookResponse>(getBooksUrl(search))
-      .then((res) => {
-        setResults(res.data.items);
-        setIsLoading(false);
-      })
-      .catch((err) => {
-        setError(err.message);
-        setIsLoading(false);
-      });
-  };
-
-  useEffect(() => {
-    if (search === "" || sortOrder === "") {
-      setResults([]);
-      return;
-    } else {
-      axios
-        .get<BookResponse>(getBooksUrl(search, sortOrder))
-        .then((res) => {
-          setResults(res.data.items);
-          setIsLoading(false);
-        })
-        .catch((err) => {
-          setError(err.message);
-          setIsLoading(false);
-        });
-    }
-  }, [search, sortOrder]);
+  const {
+    ref,
+    search,
+    setSearch,
+    results,
+    error,
+    sortOrder,
+    setSortOrder,
+    isLoading,
+    searchBook,
+  } = useBooks();
 
   return (
     <>
