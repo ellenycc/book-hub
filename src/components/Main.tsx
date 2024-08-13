@@ -51,13 +51,12 @@ const Main = () => {
               <InputLeftElement children={<BsSearch />} color="blue.700" />
               <Input
                 ref={ref}
-                id="search"
                 value={search}
+                onChange={(e) => setSearch(e.target.value)}
                 borderRadius={20}
                 placeholder="Title, keyword, author or ISBN..."
                 variant="customInput"
                 focusBorderColor="blue.50"
-                onChange={(event) => setSearch(event.target.value)}
               />
             </InputGroup>
           </form>
@@ -74,7 +73,7 @@ const Main = () => {
         </Box>
         {results.length !== 0 && (
           <Heading fontSize="24px" marginLeft={2} marginY={10}>
-            Search Results for "{search}"
+            Search Results
           </Heading>
         )}
         <Center>

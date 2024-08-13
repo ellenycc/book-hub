@@ -1,7 +1,6 @@
 import axios from "axios";
-import { FormEvent, useEffect, useRef, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 import getBooksUrl from "../services/books-url";
-
 interface Book {
   id: string;
   volumeInfo: {
@@ -44,22 +43,15 @@ const useBooks = () => {
 
   const searchBook = (event: FormEvent) => {
     event.preventDefault();
-    if (!ref.current) return;
-    if (search === "") {
+    if (ref.current && ref.current.value.trim() !== "") {
+      const currentSearch = ref.current.value;
+      setSearch("");
+      fetchBooks(currentSearch, sortOrder);
+    } else {
       setError("Please enter a search term");
       return;
     }
-    fetchBooks(search, sortOrder);
   };
-
-  useEffect(() => {
-    if (search === "" || sortOrder === "") {
-      setResults([]);
-      return;
-    } else {
-      fetchBooks(search, sortOrder);
-    }
-  }, [search, sortOrder]);
 
   return {
     ref,
