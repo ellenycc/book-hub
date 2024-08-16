@@ -1,5 +1,5 @@
 import axios from "axios";
-import { FormEvent, useRef, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import getBooksUrl from "../services/books-url";
 interface Book {
   id: string;
@@ -26,9 +26,7 @@ const useBooks = () => {
   const [sortOrder, setSortOrder] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const fetchBooks = (searchText: string, order: string) => {
-    setIsLoading(true);
-    setError("");
+  const fetchBooks = (searchText: string, order?: string) => {
     axios
       .get<BookResponse>(getBooksUrl(searchText, order))
       .then((res) => {
@@ -45,13 +43,19 @@ const useBooks = () => {
     event.preventDefault();
     if (ref.current && ref.current.value.trim() !== "") {
       const currentSearch = ref.current.value;
-      setSearch("");
+      setSearch(currentSearch);
       fetchBooks(currentSearch, sortOrder);
     } else {
       setError("Please enter a search term");
       return;
     }
   };
+
+  useEffect(() => {
+    if (search) {
+      fetchBooks(search, sortOrder);
+    }
+  }, [sortOrder]);
 
   return {
     ref,
