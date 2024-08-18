@@ -1,22 +1,8 @@
 import axios from "axios";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import getBooksUrl from "../services/books-url";
-interface Book {
-  id: string;
-  volumeInfo: {
-    title: string;
-    authors?: string[];
-    publishedDate: string;
-    description: string;
-    imageLinks?: {
-      thumbnail: string;
-    };
-  };
-}
-
-interface BookResponse {
-  items: Book[];
-}
+import { Book } from "../assets/entities/Book";
+import { BookResponse } from "../assets/entities/BookResponse";
 
 const useBooks = () => {
   const ref = useRef<HTMLInputElement>(null);
