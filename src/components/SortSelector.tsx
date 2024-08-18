@@ -6,7 +6,6 @@ export interface Props {
   sortOrder: string;
 }
 
-// TODO: move useEffect hook
 const SortSelector = ({ onSelectSortOrder, sortOrder }: Props) => {
   const sortOrders = [
     { value: "relevance", label: "Relevance" },

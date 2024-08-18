@@ -12,7 +12,7 @@ const useBooks = () => {
   const [sortOrder, setSortOrder] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const fetchBooks = (searchText: string, order?: string) => {
+  const fetchBooks = (searchText: string, order: string) => {
     axios
       .get<BookResponse>(getBooksUrl(searchText, order))
       .then((res) => {
