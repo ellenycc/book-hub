@@ -5,6 +5,7 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
+  SimpleGrid,
   Spinner,
   Text,
 } from "@chakra-ui/react";
@@ -12,19 +13,13 @@ import { BsSearch } from "react-icons/bs";
 import useBooks from "../hooks/useBooks";
 import BookCard from "./BookCard";
 import SortSelector from "./SortSelector";
+import { useRef, useState } from "react";
 
 const Main = () => {
-  const {
-    ref,
-    search,
-    setSearch,
-    results,
-    error,
-    sortOrder,
-    setSortOrder,
-    isLoading,
-    searchBook,
-  } = useBooks();
+  const ref = useRef<HTMLInputElement>(null);
+  const [search, setSearch] = useState("");
+  const [sortOrder, setSortOrder] = useState("");
+  const { data: results, error, isLoading } = useBooks(search, sortOrder);
 
   return (
     <>
@@ -46,13 +41,20 @@ const Main = () => {
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Quisque
             sagittis purus sit amet volutpat consequat.
           </Text>
-          <form onSubmit={searchBook}>
+          <form
+            onSubmit={(event) => {
+              event.preventDefault();
+              if (ref.current && ref.current.value.trim() !== "") {
+                setSearch(ref.current.value);
+              } else {
+                alert("Please enter a search term");
+              }
+            }}
+          >
             <InputGroup minWidth="50vw" size="lg">
               <InputLeftElement children={<BsSearch />} color="blue.700" />
               <Input
                 ref={ref}
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
                 borderRadius={20}
                 placeholder="Title, keyword, author or ISBN..."
                 variant="customInput"
@@ -68,16 +70,23 @@ const Main = () => {
       </Center>
       <Box paddingX={10}>
         <Box marginLeft={2} marginTop={10}>
-          {error && <p className="text-danger">{error}</p>}
+          {error && <p className="text-danger">{error.message}</p>}
           {isLoading && <Spinner />}
         </Box>
-        {results.length !== 0 && (
+        {results && results.length > 0 && (
           <Heading fontSize="24px" marginLeft={2} marginY={10}>
             Search Results
           </Heading>
         )}
         <Center>
-          <BookCard results={results} />
+          <SimpleGrid
+            columns={{ sm: 1, md: 2, lg: 3, xl: 4 }}
+            padding="10px"
+            spacing={10}
+          >
+            {results &&
+              results.map((book) => <BookCard key={book.id} book={book} />)}
+          </SimpleGrid>
         </Center>
       </Box>
     </>
