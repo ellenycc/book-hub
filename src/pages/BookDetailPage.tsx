@@ -18,18 +18,16 @@ const BookDetailPage = () => {
 
   if (isLoading) return <Spinner />;
 
-  if (error || !book) throw error;
+  if (error || !book) return <Text>Error loading book details.</Text>;
 
-  const description = book.volumeInfo.description;
+  const { title, subtitle, authors, description, imageLinks } = book.volumeInfo;
 
   return (
-    <SimpleGrid columns={{ base: 1, md: 2 }} paddingX={5} spacing={2}>
+    <SimpleGrid columns={{ base: 1, md: 2 }} paddingX={10} spacing={2}>
       <Box>
-        <Heading>
-          {book.volumeInfo.title}: {book.volumeInfo.subtitle}
-        </Heading>
+        <Heading>{subtitle ? `${title}: ${subtitle}` : title}</Heading>
         <Text paddingTop={5} as="i">
-          By {book.volumeInfo.authors?.join(", ")}
+          By {authors?.join(", ")}
         </Text>
         <Image
           height="250px"
@@ -37,11 +35,7 @@ const BookDetailPage = () => {
           objectFit="contain"
           borderRadius={4}
           marginTop={5}
-          src={
-            book.volumeInfo.imageLinks
-              ? book.volumeInfo.imageLinks.thumbnail
-              : noImage
-          }
+          src={imageLinks ? imageLinks.thumbnail : noImage}
         />
       </Box>
       <Box>
