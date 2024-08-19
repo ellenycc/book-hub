@@ -3,6 +3,7 @@ import getBooksUrl from "../services/books-url";
 import { Book } from "../assets/entities/Book";
 import { BookResponse } from "../assets/entities/BookResponse";
 import { useQuery } from "@tanstack/react-query";
+import ms from "ms";
 
 const useBooks = (searchText: string, order?: string) => {
   return useQuery<Book[], Error>({
@@ -10,10 +11,9 @@ const useBooks = (searchText: string, order?: string) => {
     queryFn: () =>
       axios
         .get<BookResponse>(getBooksUrl(searchText, order))
-        .then((res) => res.data.items)
-        .catch((err) => err.message),
+        .then((res) => res.data.items),
     enabled: searchText !== "",
-    staleTime: 1440, // 24 hours
+    staleTime: ms("24h"),
   });
 };
 
