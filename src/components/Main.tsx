@@ -18,8 +18,12 @@ import { useRef, useState } from "react";
 const Main = () => {
   const ref = useRef<HTMLInputElement>(null);
   const [search, setSearch] = useState("");
-  const [sortOrder, setSortOrder] = useState("");
-  const { data: results, error, isLoading } = useBooks(search, sortOrder);
+  const [sortOrder, setSortOrder] = useState("Relevance");
+  const {
+    data: results,
+    error,
+    isLoading,
+  } = useBooks({ searchText: search, sortOrder });
 
   return (
     <>

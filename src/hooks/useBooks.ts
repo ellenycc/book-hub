@@ -5,14 +5,19 @@ import { BookResponse } from "../assets/entities/BookResponse";
 import { useQuery } from "@tanstack/react-query";
 import ms from "ms";
 
-const useBooks = (searchText: string, order?: string) => {
+interface BookQuery {
+  searchText?: string;
+  sortOrder?: string;
+}
+
+const useBooks = ({ searchText, sortOrder }: BookQuery) => {
   return useQuery<Book[], Error>({
-    queryKey: ["books", searchText, order],
+    queryKey: ["books", searchText, sortOrder],
     queryFn: () =>
       axios
-        .get<BookResponse>(getBooksUrl(searchText, order))
+        .get<BookResponse>(getBooksUrl({ searchText, sortOrder }))
         .then((res) => res.data.items),
-    enabled: searchText !== "",
+    enabled: searchText !== "", // only fetch data when searchText is provided
     staleTime: ms("24h"),
   });
 };
