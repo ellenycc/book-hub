@@ -1,4 +1,4 @@
-const API_KEY = "AIzaSyAje9Kn4hBLvO4yWkAX7BNGrHYpzB19jt0";
+const API_KEY = import.meta.env.VITE_API_KEY;
 const BASE_URL = "https://www.googleapis.com/books/v1/volumes";
 
 export interface BookQuery {
