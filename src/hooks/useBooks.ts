@@ -4,11 +4,7 @@ import { Book } from "../assets/entities/Book";
 import { BookResponse } from "../assets/entities/BookResponse";
 import { useQuery } from "@tanstack/react-query";
 import ms from "ms";
-
-interface BookQuery {
-  searchText?: string;
-  sortOrder?: string;
-}
+import { BookQuery } from "../services/BookQuery";
 
 const useBooks = ({ searchText, sortOrder }: BookQuery) => {
   return useQuery<Book[], Error>({
