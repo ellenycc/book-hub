@@ -1,12 +1,10 @@
 import { Button, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
 import { BsChevronDown } from "react-icons/bs";
+import useBookQueryStore from "../store";
 
-export interface Props {
-  onSelectSortOrder: (sortOrder: string) => void;
-  sortOrder: string;
-}
-
-const SortSelector = ({ onSelectSortOrder, sortOrder }: Props) => {
+const SortSelector = () => {
+  const setSortOrder = useBookQueryStore((s) => s.setSortOrder);
+  const sortOrder = useBookQueryStore((s) => s.bookQuery.sortOrder);
   const sortOrders = [
     { value: "relevance", label: "Relevance" },
     { value: "newest", label: "Newest" },
@@ -26,7 +24,7 @@ const SortSelector = ({ onSelectSortOrder, sortOrder }: Props) => {
         {sortOrders.map((order) => (
           <MenuItem
             onClick={() => {
-              onSelectSortOrder(order.value);
+              setSortOrder(order.value);
             }}
             key={order.value}
             value={order.value}

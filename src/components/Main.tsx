@@ -13,17 +13,13 @@ import { BsSearch } from "react-icons/bs";
 import useBooks from "../hooks/useBooks";
 import BookCard from "./BookCard";
 import SortSelector from "./SortSelector";
-import { useRef, useState } from "react";
+import { useRef } from "react";
+import useBookQueryStore from "../store";
 
 const Main = () => {
   const ref = useRef<HTMLInputElement>(null);
-  const [search, setSearch] = useState("");
-  const [sortOrder, setSortOrder] = useState("Relevance");
-  const {
-    data: results,
-    error,
-    isLoading,
-  } = useBooks({ searchText: search, sortOrder });
+  const setSearchText = useBookQueryStore((s) => s.setSearchText);
+  const { data: results, error, isLoading } = useBooks();
 
   return (
     <>
@@ -49,7 +45,7 @@ const Main = () => {
             onSubmit={(event) => {
               event.preventDefault();
               if (ref.current && ref.current.value.trim() !== "") {
-                setSearch(ref.current.value);
+                setSearchText(ref.current.value);
               } else {
                 alert("Please enter a search term");
               }
@@ -66,10 +62,7 @@ const Main = () => {
               />
             </InputGroup>
           </form>
-          <SortSelector
-            sortOrder={sortOrder}
-            onSelectSortOrder={(sortOrder) => setSortOrder(sortOrder)}
-          />
+          <SortSelector />
         </Box>
       </Center>
       <Box paddingX={10}>
