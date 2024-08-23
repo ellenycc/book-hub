@@ -13,7 +13,7 @@ interface BookQueryStore {
   setId: (id: string) => void;
 }
 
-const useBookQueryStore = create<BookQueryStore>((set) => ({
+const useBookQueryStore = create<BookQueryStore>()((set) => ({
   bookQuery: {},
   setSearchText: (searchText) => set(() => ({ bookQuery: { searchText } })), // only set the searchText and clear other filter
   setSortOrder: (sortOrder) =>

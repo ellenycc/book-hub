@@ -1,7 +1,8 @@
-import { Box, Card, CardBody, Image, Text } from "@chakra-ui/react";
+import { Box, Button, Card, CardBody, Image, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { Book } from "../assets/entities/Book";
 import noImage from "../assets/no-image-placeholder-6f3882e0.webp";
+import useBookListStore from "../stores/BookListStore";
 
 export interface Props {
   book: Book;
@@ -13,6 +14,8 @@ const BookCard = ({ book }: Props) => {
   const subtitle = book.volumeInfo.subtitle;
   const authors = book.volumeInfo.authors;
   const publishedDate = book.volumeInfo.publishedDate;
+
+  const addBook = useBookListStore((s) => s.addBook);
 
   return (
     <Card
@@ -41,9 +44,12 @@ const BookCard = ({ book }: Props) => {
             </Text>
           </Link>
           <Text as="i">By {authors?.join(", ")}</Text>
-          <Text pt={2} color="#718096">
+          <Text paddingTop={2} color="#718096">
             Published {publishedDate}
           </Text>
+          <Button mt={5} onClick={() => addBook(book)}>
+            Add to Wish List
+          </Button>
         </Box>
         <Box marginTop="auto"></Box>
       </CardBody>

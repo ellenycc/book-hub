@@ -1,6 +1,6 @@
 import { Button, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
 import { BsChevronDown } from "react-icons/bs";
-import useBookQueryStore from "../store";
+import useBookQueryStore from "../stores/BookQueryStore";
 
 const SortSelector = () => {
   const setSortOrder = useBookQueryStore((s) => s.setSortOrder);

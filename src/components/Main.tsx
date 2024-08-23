@@ -14,7 +14,7 @@ import useBooks from "../hooks/useBooks";
 import BookCard from "./BookCard";
 import SortSelector from "./SortSelector";
 import { useRef } from "react";
-import useBookQueryStore from "../store";
+import useBookQueryStore from "../stores/BookQueryStore";
 
 const Main = () => {
   const ref = useRef<HTMLInputElement>(null);

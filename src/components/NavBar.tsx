@@ -10,9 +10,14 @@ const NavBar = () => {
         <Link to="/">
           <Image src={logo} boxSize="70px" padding="10px" />
         </Link>
+
         <Heading>BookHub</Heading>
       </HStack>
-      <ColorModeSwitch />
+      <HStack>
+        {" "}
+        <Link to="/wishlist">Wish List</Link>
+        <ColorModeSwitch />
+      </HStack>
     </HStack>
   );
 };

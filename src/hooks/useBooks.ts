@@ -5,7 +5,7 @@ import { BookResponse } from "../assets/entities/BookResponse";
 import { useQuery } from "@tanstack/react-query";
 import ms from "ms";
 
-import useBookQueryStore from "../store";
+import useBookQueryStore from "../stores/BookQueryStore";
 
 const useBooks = () => {
   const bookQuery = useBookQueryStore((s) => s.bookQuery);
