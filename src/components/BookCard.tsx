@@ -1,13 +1,9 @@
-import { Box, Button, Card, CardBody, Image, Text } from "@chakra-ui/react";
+import { Box, Card, CardBody, Image, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import { Book } from "../assets/entities/Book";
 import noImage from "../assets/no-image-placeholder-6f3882e0.webp";
 import useBookListStore from "../stores/BookListStore";
-import { useState } from "react";
-
-export interface Props {
-  book: Book;
-}
+import AddBookButton from "./AddBookButton";
+import { Props } from "./Main";
 
 const BookCard = ({ book }: Props) => {
   const bookImageLink = book.volumeInfo.imageLinks;
@@ -18,12 +14,6 @@ const BookCard = ({ book }: Props) => {
 
   const addBook = useBookListStore((s) => s.addBook);
 
-  const [isAdded, setIsAdded] = useState(false);
-
-  const handleAddBook = () => {
-    addBook(book);
-    setIsAdded(true);
-  };
   return (
     <Card
       _hover={{
@@ -63,25 +53,7 @@ const BookCard = ({ book }: Props) => {
           <Text paddingTop={2} color="gray.500" fontSize="sm">
             Published {publishedDate}
           </Text>
-          <Button
-            mt={5}
-            colorScheme="teal"
-            size="md"
-            width="full"
-            onClick={handleAddBook}
-            _hover={{ bg: isAdded ? "green.600" : "teal.600" }}
-            _active={{
-              bg: isAdded ? "green.700" : "teal.700",
-              transform: "scale(0.98)",
-            }}
-            _focus={{
-              boxShadow:
-                "0 0 1px 2px rgba(72, 187, 120, .75), 0 1px 1px rgba(0, 0, 0, .15)",
-            }}
-            isDisabled={isAdded}
-          >
-            {isAdded ? "Added to Wish List" : "Add to Wish List"}
-          </Button>
+          <AddBookButton book={book} />
         </Box>
         <Box marginTop="auto"></Box>
       </CardBody>

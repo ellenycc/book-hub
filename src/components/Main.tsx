@@ -17,6 +17,11 @@ import BookCard from "./BookCard";
 import SortSelector from "./SortSelector";
 import { useRef } from "react";
 import useBookQueryStore from "../stores/BookQueryStore";
+import { Book } from "../assets/entities/Book";
+
+export interface Props {
+  book: Book;
+}
 
 const Main = () => {
   const ref = useRef<HTMLInputElement>(null);
@@ -67,11 +72,12 @@ const Main = () => {
                 focusBorderColor="blue.500"
                 isDisabled={isLoading}
               />
-              <InputRightElement width="6rem">
+              <InputRightElement width="5.25rem">
                 <Button
-                  h="2.5rem"
+                  h="3rem"
                   size="md"
-                  colorScheme="teal"
+                  colorScheme="yellow"
+                  bg="yellow.300"
                   onClick={() => handleSearch()}
                 >
                   Search

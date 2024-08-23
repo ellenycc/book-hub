@@ -19,13 +19,13 @@ const SortSelector = () => {
       <MenuButton
         as={Button}
         rightIcon={<BsChevronDown />}
-        backgroundColor="teal.500"
+        backgroundColor="teal.400"
         color="white"
-        _hover={{ bg: "blue.700" }}
+        _hover={{ bg: "teal.700" }}
         _dark={{
           bg: "teal.400",
           color: "white",
-          _hover: { bg: "blue.500" },
+          _hover: { bg: "teal.500" },
         }}
         borderRadius={20}
         paddingX={6}

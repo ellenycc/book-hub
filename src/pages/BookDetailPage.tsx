@@ -5,10 +5,13 @@ import {
   Text,
   Image,
   SimpleGrid,
+  HStack,
+  Flex,
 } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import useBook from "../hooks/useBook";
 import noImage from "../assets/no-image-placeholder-6f3882e0.webp";
+import AddBookButton from "../components/AddBookButton";
 
 const BookDetailPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -54,6 +57,7 @@ const BookDetailPage = () => {
             textAlign="justify"
             dangerouslySetInnerHTML={{ __html: description }}
           />
+          <AddBookButton book={book} />
         </Box>
       </SimpleGrid>
     </Box>
