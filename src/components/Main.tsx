@@ -1,10 +1,12 @@
 import {
   Box,
+  Button,
   Center,
   Heading,
   Input,
   InputGroup,
   InputLeftElement,
+  InputRightElement,
   SimpleGrid,
   Spinner,
   Text,
@@ -20,6 +22,14 @@ const Main = () => {
   const ref = useRef<HTMLInputElement>(null);
   const setSearchText = useBookQueryStore((s) => s.setSearchText);
   const { data: results, error, isLoading } = useBooks();
+
+  const handleSearch = () => {
+    if (ref.current && ref.current.value.trim() !== "") {
+      setSearchText(ref.current.value);
+    } else {
+      alert("Please enter a search term");
+    }
+  };
 
   return (
     <>
@@ -45,24 +55,23 @@ const Main = () => {
           <form
             onSubmit={(event) => {
               event.preventDefault();
-              if (ref.current && ref.current.value.trim() !== "") {
-                setSearchText(ref.current.value);
-              } else {
-                alert("Please enter a search term");
-              }
+              handleSearch();
             }}
             style={{ width: "100%" }}
           >
             <InputGroup size="lg">
-              <InputLeftElement children={<BsSearch />} color="blue.700" />
               <Input
                 ref={ref}
-                borderRadius={20}
                 placeholder="Title, keyword, author or ISBN..."
                 variant="customInput"
                 focusBorderColor="blue.500"
                 isDisabled={isLoading}
               />
+              <InputRightElement width="7rem">
+                <Button h="1.75rem" size="md" onClick={() => handleSearch()}>
+                  Search
+                </Button>
+              </InputRightElement>
             </InputGroup>
           </form>
           <SortSelector />
