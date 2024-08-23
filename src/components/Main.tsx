@@ -29,17 +29,18 @@ const Main = () => {
           flexDirection="column"
           alignItems="center"
           justifyContent="center"
-          gap={10}
-          minHeight="70vh"
-          width="80vw"
+          gap={6}
+          minHeight="60vh"
+          width={{ base: "90vw", md: "70vw", lg: "60w" }}
           paddingY={5}
           textAlign="center"
         >
-          <Heading fontSize="48px">What is your next read?</Heading>
-          <Text fontSize="xl">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Quisque
-            sagittis purus sit amet volutpat consequat.
+          <Heading fontSize={{ base: "32px", md: "48px" }} mb={4}>
+            What is your next read?
+          </Heading>
+          <Text fontSize={{ base: "md", md: "xl" }} maxWidth="600px" mb={4}>
+            Find your next book from our extensive library. Search by title,
+            author, or ISBN. Save books to your wish list.
           </Text>
           <form
             onSubmit={(event) => {
@@ -50,30 +51,39 @@ const Main = () => {
                 alert("Please enter a search term");
               }
             }}
+            style={{ width: "100%" }}
           >
-            <InputGroup minWidth="50vw" size="lg">
+            <InputGroup size="lg">
               <InputLeftElement children={<BsSearch />} color="blue.700" />
               <Input
                 ref={ref}
                 borderRadius={20}
                 placeholder="Title, keyword, author or ISBN..."
                 variant="customInput"
-                focusBorderColor="blue.50"
+                focusBorderColor="blue.500"
+                isDisabled={isLoading}
               />
             </InputGroup>
           </form>
           <SortSelector />
         </Box>
       </Center>
-      <Box paddingX={10}>
+      <Box paddingX={{ base: 4, md: 10 }}>
         <Box marginLeft={2} marginTop={10}>
-          {error && <p className="text-danger">{error.message}</p>}
+          {error && <Text color="red.500">{error.message}</Text>}
           {isLoading && <Spinner />}
         </Box>
         {results && results.length > 0 && (
           <Heading fontSize="24px" marginLeft={2} marginY={10}>
             Search Results
           </Heading>
+        )}
+        {results && results.length === 0 && isLoading && (
+          <Center>
+            <Text fontSize="xl" color="gray.500">
+              No results found. Please try another search term.
+            </Text>
+          </Center>
         )}
         <Center>
           <SimpleGrid

@@ -23,29 +23,40 @@ const BookDetailPage = () => {
   const { title, subtitle, authors, description, imageLinks } = book.volumeInfo;
 
   return (
-    <SimpleGrid columns={{ base: 1, md: 2 }} paddingX={10} spacing={2}>
-      <Box>
-        <Heading>{subtitle ? `${title}: ${subtitle}` : title}</Heading>
-        <Text paddingTop={5} as="i">
-          By {authors?.join(", ")}
-        </Text>
-        <Image
-          height="250px"
-          alignItems="center"
-          objectFit="contain"
-          borderRadius={4}
-          marginTop={5}
-          src={imageLinks ? imageLinks.thumbnail : noImage}
-        />
-      </Box>
-      <Box>
-        <Heading as="h2">Summary</Heading>
-        <Text
-          paddingTop={4}
-          dangerouslySetInnerHTML={{ __html: description }}
-        />
-      </Box>
-    </SimpleGrid>
+    <Box padding={{ base: 5, md: 10 }}>
+      <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}>
+        <Box textAlign={{ base: "center", md: "left" }}>
+          <Heading size="lg" mb={4}>
+            {subtitle ? `${title}: ${subtitle}` : title}
+          </Heading>
+          <Text fontSize="lg" mb={5} as="i">
+            By {authors?.join(", ")}
+          </Text>
+          <Image
+            height="350px"
+            width="auto"
+            mx={{ base: "auto", md: "0" }}
+            objectFit="contain"
+            borderRadius="md"
+            marginTop={5}
+            shadow="md"
+            src={imageLinks ? imageLinks.thumbnail : noImage}
+            alt={title}
+          />
+        </Box>
+        <Box>
+          <Heading as="h2" size="md" mb={4}>
+            Summary
+          </Heading>
+          <Text
+            fontSize="md"
+            lineHeight="taller"
+            textAlign="justify"
+            dangerouslySetInnerHTML={{ __html: description }}
+          />
+        </Box>
+      </SimpleGrid>
+    </Box>
   );
 };
 
