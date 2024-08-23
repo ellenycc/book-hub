@@ -16,11 +16,31 @@ const SortSelector = () => {
 
   return (
     <Menu>
-      <MenuButton as={Button} rightIcon={<BsChevronDown />}>
+      <MenuButton
+        as={Button}
+        rightIcon={<BsChevronDown />}
+        backgroundColor="teal.500"
+        color="white"
+        _hover={{ bg: "blue.700" }}
+        _dark={{
+          bg: "teal.400",
+          color: "white",
+          _hover: { bg: "blue.500" },
+        }}
+        borderRadius={20}
+        paddingX={6}
+        paddingY={4}
+      >
         Order by: {currentSortOrder?.label || "Relevance"}
       </MenuButton>
 
-      <MenuList>
+      <MenuList
+        bg="white"
+        _dark={{ bg: "gray.700", borderColor: "gray.600" }}
+        borderColor="gray.300"
+        borderRadius="md"
+        shadow="md"
+      >
         {sortOrders.map((order) => (
           <MenuItem
             onClick={() => {
@@ -28,6 +48,14 @@ const SortSelector = () => {
             }}
             key={order.value}
             value={order.value}
+            _hover={{ bg: "gray.100" }}
+            _dark={{
+              bg: "gray.600",
+              color: "white",
+              _hover: { bg: "gray.500" },
+            }}
+            paddingX={4}
+            paddingY={2}
           >
             {order.label}
           </MenuItem>

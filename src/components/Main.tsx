@@ -67,8 +67,13 @@ const Main = () => {
                 focusBorderColor="blue.500"
                 isDisabled={isLoading}
               />
-              <InputRightElement width="7rem">
-                <Button h="1.75rem" size="md" onClick={() => handleSearch()}>
+              <InputRightElement width="6rem">
+                <Button
+                  h="2.5rem"
+                  size="md"
+                  colorScheme="teal"
+                  onClick={() => handleSearch()}
+                >
                   Search
                 </Button>
               </InputRightElement>
