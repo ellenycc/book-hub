@@ -5,13 +5,11 @@ import {
   Heading,
   Input,
   InputGroup,
-  InputLeftElement,
   InputRightElement,
   SimpleGrid,
   Spinner,
   Text,
 } from "@chakra-ui/react";
-import { BsSearch } from "react-icons/bs";
 import useBooks from "../hooks/useBooks";
 import BookCard from "./BookCard";
 import SortSelector from "./SortSelector";

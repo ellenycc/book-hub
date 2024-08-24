@@ -4,11 +4,13 @@ import {
   Box,
   Button,
   HStack,
+  IconButton,
   List,
   ListItem,
   Text,
   VStack,
 } from "@chakra-ui/react";
+import { FaRegTrashCan } from "react-icons/fa6";
 
 const WishList = () => {
   const savedBooks = useBookListStore((s) => s.savedBooks);
@@ -47,14 +49,14 @@ const WishList = () => {
                     </Text>
                   </ListItem>
                 </VStack>
-                <Button
-                  colorScheme="red"
+                <IconButton
+                  aria-label="Remove book"
+                  icon={<FaRegTrashCan />}
+                  colorScheme="blue"
                   variant="outline"
                   size="sm"
                   onClick={() => removeBook(book.id)}
-                >
-                  Remove
-                </Button>
+                />
               </HStack>
             </Box>
           ))}
@@ -62,7 +64,7 @@ const WishList = () => {
       )}
       {savedBooks.length > 0 && (
         <Button
-          colorScheme="red"
+          colorScheme="blue"
           variant="solid"
           mt={8}
           w="full"
