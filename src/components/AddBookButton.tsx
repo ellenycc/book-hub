@@ -2,6 +2,7 @@ import { Button } from "@chakra-ui/react";
 import React, { useState } from "react";
 import useBookListStore from "../stores/BookListStore";
 import { Props } from "./Main";
+import { FaRegHeart } from "react-icons/fa";
 
 const AddBookButton = ({ book }: Props) => {
   const addBook = useBookListStore((s) => s.addBook);
@@ -30,7 +31,8 @@ const AddBookButton = ({ book }: Props) => {
       }}
       isDisabled={isAdded}
     >
-      {isAdded ? "Added to Wish List" : "Add to Wish List"}
+      <FaRegHeart style={{ marginRight: "4px" }} />
+      {isAdded ? "Added to Wishlist" : "Add to Wishlist"}
     </Button>
   );
 };

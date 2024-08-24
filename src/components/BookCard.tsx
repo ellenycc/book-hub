@@ -47,6 +47,7 @@ const BookCard = ({ book }: Props) => {
             color="gray.600"
             _dark={{ color: "gray.300" }}
             fontSize="sm"
+            isTruncated
           >
             By {authors?.join(", ")}
           </Text>

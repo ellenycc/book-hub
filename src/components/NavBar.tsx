@@ -11,6 +11,7 @@ import ColorModeSwitch from "./ColorModeSwitch";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { HamburgerIcon } from "@chakra-ui/icons";
+import { FaRegHeart } from "react-icons/fa";
 
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -34,7 +35,8 @@ const NavBar = () => {
       <HStack spacing={4} display={{ base: "none", md: "flex" }}>
         <Link to="/wishlist">
           <Button colorScheme="teal" variant="outline" size="md">
-            Wish List
+            <FaRegHeart style={{ marginRight: "7px" }} />
+            Wishlist
           </Button>
         </Link>
         <ColorModeSwitch />
@@ -73,7 +75,8 @@ const NavBar = () => {
               marginBottom={2}
               onClick={() => setIsMenuOpen(false)}
             >
-              Wish List
+              <FaRegHeart style={{ marginRight: "7px" }} />
+              Wishlist
             </Button>
           </Link>
           <ColorModeSwitch />
