@@ -23,6 +23,7 @@ export interface Props {
 
 const Main = () => {
   const ref = useRef<HTMLInputElement>(null);
+  const searchText = useBookQueryStore((s) => s.bookQuery.searchText);
   const setSearchText = useBookQueryStore((s) => s.setSearchText);
   const { data: results, error, isLoading } = useBooks();
 
@@ -87,22 +88,20 @@ const Main = () => {
         </Box>
       </Center>
       <Box paddingX={{ base: 4, md: 10 }}>
-        <Box marginLeft={2} marginTop={10}>
+        <Box marginTop={10} mx="auto" textAlign="center">
           {error && <Text color="red.500">{error.message}</Text>}
           {isLoading && <Spinner />}
-        </Box>
-        {results && results.length > 0 && (
-          <Heading fontSize="24px" marginLeft={2} marginY={10}>
-            Search Results
-          </Heading>
-        )}
-        {results && results.length === 0 && isLoading && (
-          <Center>
+          {results && results.length > 0 && (
+            <Heading fontSize="24px" marginLeft={2} marginY={10}>
+              Search Results of "{searchText}"
+            </Heading>
+          )}
+          {results && results.length === 0 && isLoading && (
             <Text fontSize="xl" color="gray.500">
               No results found. Please try another search term.
             </Text>
-          </Center>
-        )}
+          )}
+        </Box>
         <Center>
           <SimpleGrid
             columns={{ sm: 1, md: 2, lg: 3, xl: 4 }}
