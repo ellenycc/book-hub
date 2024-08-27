@@ -1,16 +1,35 @@
 import { Button } from "@chakra-ui/react";
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import useBookListStore from "../stores/BookListStore";
 import { Props } from "./Main";
 import { FaRegHeart } from "react-icons/fa";
 
 const AddBookButton = ({ book }: Props) => {
   const addBook = useBookListStore((s) => s.addBook);
+  const savedBooks = useBookListStore((s) => s.savedBooks);
   const [isAdded, setIsAdded] = useState(false);
 
+  useEffect(() => {
+    // Check if the book is added
+    const bookIsAdded = JSON.parse(
+      localStorage.getItem(`added_book_${book.id}`) || "false"
+    );
+    if (bookIsAdded) setIsAdded(true);
+
+    // If the book is not in the wishlist, remove the added state from localStorage
+    if (!savedBooks.some((savedBook) => savedBook.id === book.id)) {
+      localStorage.removeItem(`added_book_${book.id}`);
+      setIsAdded(false);
+    }
+  }, [book.id, savedBooks]);
+
   const handleAddBook = () => {
+    if (savedBooks.some((savedBook) => savedBook.id === book.id)) return;
     addBook(book);
     setIsAdded(true);
+
+    // save the added state in localStorage
+    localStorage.setItem(`added_book_${book.id}`, JSON.stringify(true));
   };
 
   return (
@@ -32,6 +51,7 @@ const AddBookButton = ({ book }: Props) => {
       isDisabled={isAdded}
     >
       <FaRegHeart style={{ marginRight: "4px" }} />
+
       {isAdded ? "Added to Wishlist" : "Add to Wishlist"}
     </Button>
   );
