@@ -10,7 +10,7 @@ const getBooksUrl = ({ searchText = "", sortOrder, id }: BookQuery): string => {
 
   let url = `${BASE_URL}?q=${encodeURIComponent(
     searchText
-  )}&key=${API_KEY}&maxResults=40`;
+  )}&key=${API_KEY}&maxResults=20`;
 
   if (sortOrder) {
     url += `&orderBy=${sortOrder}`;
