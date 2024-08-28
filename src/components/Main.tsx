@@ -50,11 +50,11 @@ const Main = () => {
           textAlign="center"
         >
           <Heading fontSize={{ base: "32px", md: "48px" }} mb={4}>
-            What is your next read?
+            Dive Into Your Next Great Read
           </Heading>
-          <Text fontSize={{ base: "md", md: "xl" }} maxWidth="600px" mb={4}>
-            Find your next book from our extensive library. Search by title,
-            author, or ISBN. Save books to your wish list.
+          <Text fontSize={{ base: "md", md: "xl" }} maxWidth="700px" mb={4}>
+            Explore our extensive library with just a tap, and curate your
+            personal wishlist.
           </Text>
           <form
             onSubmit={(event) => {
