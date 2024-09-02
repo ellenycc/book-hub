@@ -20,7 +20,7 @@ BookHub is a book discovery web app that allows users find new and interesting b
 
 As my first solo React project, I applied the knowledge gained from the various React courses and tutorials that I've gone through. Through this, I have strengthened my foundations in React, particularly understanding the principle of single responsibility and component-based architecture.
 
-Initially, I struggled in prop passing and how to properly structure the app, leading to a cluttered components. Once the core functionality was working, I refactored the code to enhance modularity. For example, I extracted data fetching logic into a custom hook to simplify component logic and make the components more resuable.
+Initially, I struggled in prop passing and how to properly structure the app, leading to cluttered components. Once the core functionality was working, I refactored the code to enhance modularity. For example, I extracted data fetching logic into a custom hook to simplify component logic and make the components more resuable.
 
 Additional takeways include:
 
