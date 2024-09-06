@@ -5,6 +5,7 @@ import {
   Button,
   HStack,
   IconButton,
+  Image,
   List,
   ListItem,
   Text,
@@ -36,7 +37,7 @@ const WishList = () => {
       )}
       {savedBooks.length === 0 ? (
         <Text textAlign="center" color="gray.500" fontSize="xl">
-          Your wishlist is empty.
+          Wishlist is empty.
         </Text>
       ) : (
         <List spacing={5}>

@@ -87,7 +87,7 @@ const Main = () => {
           <SortSelector />
         </Box>
       </Center>
-      <Box paddingX={{ base: 4, md: 10 }}>
+      <Box paddingX={{ base: 4, md: 10 }} marginBottom={10}>
         <Box marginTop={10} mx="auto" textAlign="center">
           {error && <Text color="red.500">{error.message}</Text>}
           {isLoading && <Spinner />}
