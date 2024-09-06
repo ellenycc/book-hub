@@ -15,50 +15,51 @@ const BookCard = ({ book }: Props) => {
   const addBook = useBookListStore((s) => s.addBook);
 
   return (
-    <Card
-      _hover={{
-        transform: "scale(1.05)",
-        boxShadow: "lg",
-        transition: "transform 0.2s ease-in-out",
-      }}
-      key={book.id}
-      borderRadius={10}
-      bg="white"
-      _dark={{ bg: "gray.700" }}
-      maxWidth="280px"
-      overflow="hidden"
-    >
-      <Image
-        height="280px"
-        objectFit="contain"
-        marginTop={5}
-        src={bookImageLink ? bookImageLink.thumbnail : noImage}
-      />
+    <Link to={`/books/${book.id}`}>
+      <Card
+        _hover={{
+          transform: "scale(1.05)",
+          boxShadow: "lg",
+          transition: "transform 0.2s ease-in-out",
+        }}
+        key={book.id}
+        borderRadius={10}
+        bg="white"
+        _dark={{ bg: "gray.700" }}
+        maxWidth="280px"
+        overflow="hidden"
+      >
+        <Image
+          height="280px"
+          objectFit="contain"
+          marginTop={5}
+          src={bookImageLink ? bookImageLink.thumbnail : noImage}
+        />
 
-      <CardBody textAlign="center" padding={4}>
-        <Box marginBottom={4}>
-          <Link to={`/books/${book.id}`}>
+        <CardBody textAlign="center" padding={4}>
+          <Box marginBottom={4}>
             <Text fontSize="xl" fontWeight="bold" isTruncated>
               {subtitle ? `${title}: ${subtitle}` : title}
             </Text>
-          </Link>
-          <Text
-            as="i"
-            color="gray.600"
-            _dark={{ color: "gray.300" }}
-            fontSize="sm"
-            isTruncated
-          >
-            By {authors?.join(", ")}
-          </Text>
-          <Text paddingTop={2} color="gray.500" fontSize="sm">
-            Published {publishedDate}
-          </Text>
-          <AddBookButton book={book} />
-        </Box>
-        <Box marginTop="auto"></Box>
-      </CardBody>
-    </Card>
+
+            <Text
+              as="i"
+              color="gray.600"
+              _dark={{ color: "gray.300" }}
+              fontSize="sm"
+              isTruncated
+            >
+              By {authors?.join(", ")}
+            </Text>
+            <Text paddingTop={2} color="gray.500" fontSize="sm">
+              Published {publishedDate}
+            </Text>
+            <AddBookButton book={book} />
+          </Box>
+          <Box marginTop="auto"></Box>
+        </CardBody>
+      </Card>
+    </Link>
   );
 };
 

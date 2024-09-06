@@ -11,6 +11,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { FaRegTrashCan } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 
 const WishList = () => {
   const savedBooks = useBookListStore((s) => s.savedBooks);
@@ -18,7 +19,7 @@ const WishList = () => {
   const clearBooks = useBookListStore((s) => s.clearBooks);
 
   return (
-    <Box maxW="800px" mx="auto" mt={8} p={5}>
+    <Box maxW="800px" mx="auto" my={8} p={5}>
       <Text fontSize="3xl" fontWeight="bold" mb={6} textAlign="center">
         My Wish List
       </Text>
@@ -50,11 +51,13 @@ const WishList = () => {
               <HStack justify="space-between">
                 <VStack align="start">
                   <ListItem>
-                    <Text fontSize="xl" fontWeight="semibold">
-                      {book.volumeInfo.subtitle
-                        ? `${book.volumeInfo.title}: ${book.volumeInfo.subtitle}`
-                        : book.volumeInfo.title}
-                    </Text>
+                    <Link to={`/books/${book.id}`}>
+                      <Text fontSize="xl" fontWeight="semibold">
+                        {book.volumeInfo.subtitle
+                          ? `${book.volumeInfo.title}: ${book.volumeInfo.subtitle}`
+                          : book.volumeInfo.title}
+                      </Text>
+                    </Link>
                     <Text fontSize="md" color="gray.600">
                       {book.volumeInfo.authors?.join(", ")}
                     </Text>
