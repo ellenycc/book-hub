@@ -22,6 +22,17 @@ const WishList = () => {
       <Text fontSize="3xl" fontWeight="bold" mb={6} textAlign="center">
         My Wish List
       </Text>
+      {savedBooks.length > 0 && (
+        <Button
+          colorScheme="blue"
+          variant="solid"
+          my={8}
+          w="full"
+          onClick={() => clearBooks()}
+        >
+          Clear Wish List
+        </Button>
+      )}
       {savedBooks.length === 0 ? (
         <Text textAlign="center" color="gray.500" fontSize="xl">
           Your wishlist is empty.
@@ -61,17 +72,6 @@ const WishList = () => {
             </Box>
           ))}
         </List>
-      )}
-      {savedBooks.length > 0 && (
-        <Button
-          colorScheme="blue"
-          variant="solid"
-          mt={8}
-          w="full"
-          onClick={() => clearBooks()}
-        >
-          Clear Wish List
-        </Button>
       )}
     </Box>
   );
